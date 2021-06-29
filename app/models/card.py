@@ -6,6 +6,7 @@ class Card(db.Model):
     likes_count = db.Column(db.Integer)
     
     board_id = db.Column(db.Integer, db.ForeignKey('board.board_id'))
+#created helper function below for jsonify display 
 
     def as_dict(self):
         return {

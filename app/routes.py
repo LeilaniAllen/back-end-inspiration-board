@@ -3,6 +3,7 @@ from app import db
 from app.models.card import Card
 from app.models.board import Board
 
+#added Bluerprint and one to many relationships between models
 
 # example_bp = Blueprint('example_bp', __name__)
 boards_bp = Blueprint("boards", __name__, url_prefix="/boards")
