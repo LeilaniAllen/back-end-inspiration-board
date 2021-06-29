@@ -67,7 +67,7 @@ def delete_board(board_id):
     db.session.commit()
     return make_response(
         jsonify(
-            details="board \"{board.title}\" successfully deleted", id=board.board_id),
+            details=f"board \"{board.title}\" successfully deleted", id=board.board_id),
         200)
 
 # Handling CARDS
