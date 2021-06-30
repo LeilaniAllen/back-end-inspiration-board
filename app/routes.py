@@ -113,7 +113,7 @@ def increase_likes(card_id):
     db.session.add(card)
     db.session.commit()
 
-    return make_response({"id": card.card_id}, 201)
+    return make_response({"id": card.card_id}, 200)
 
 
 @boards_bp.route("/decrease_likes/<int:card_id>", methods=["POST"])
@@ -125,7 +125,7 @@ def decrease_likes(card_id):
     db.session.add(card)
     db.session.commit()
 
-    return make_response({"id": card.card_id}, 201)
+    return make_response({"id": card.card_id}, 200)
 
 
 @boards_bp.route("/delete_card/<int:card_id>", methods=["DELETE"])
@@ -136,5 +136,5 @@ def delete_card(card_id):
     db.session.commit()
     return make_response(
         jsonify(
-            details="card \"{card.message}\" successfully deleted", id=card.card_id),
+            details=f"card \"{card.message}\" successfully deleted", id=card.card_id),
         200)
