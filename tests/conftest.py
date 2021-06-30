@@ -63,4 +63,3 @@ def multi_boards_with_cards(app):
     ])
 
     db.session.commit()
-

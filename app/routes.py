@@ -3,7 +3,7 @@ from app import db
 from app.models.card import Card
 from app.models.board import Board
 
-#added Bluerprint and one to many relationships between models
+# added Bluerprint and one to many relationships between models
 
 # example_bp = Blueprint('example_bp', __name__)
 boards_bp = Blueprint("boards", __name__, url_prefix="/boards")
@@ -69,6 +69,7 @@ def delete_board(board_id):
         jsonify(
             details=f"board \"{board.title}\" successfully deleted", id=board.board_id),
         200)
+
 
 # Handling CARDS
 
