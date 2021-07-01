@@ -153,12 +153,12 @@ def delete_card(card_id):
 def send_slack_card_notification(card, board):
     """
     Sends a request to a slack bot to post the
-    to the inspiration-card channel
+    to the ice-ice-baby channel
     in the configured slack workspace
     """
     SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
-    text = f"Someone just created a card \"{card.message}\" on the \"{board.title}\" board!! Go take a look!"
-    url = f"https://slack.com/api/chat.postMessage?channel=inpirational-cards-notifications&text={text}"
+    text = f"📝 Someone just created a new card on the *<{board.title}>* board!! Take a look at http://ice-ice-inspo-board.herokuapp.com/ \n ```{card.message}``` \n "
+    url = f"https://slack.com/api/chat.postMessage?channel=ice-ice-baby&text={text}"
 
     payload = ""
 
