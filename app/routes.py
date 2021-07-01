@@ -1,13 +1,19 @@
 from flask import Blueprint, request, jsonify, make_response
+from dotenv import load_dotenv
+
+import os
+import requests
+
 from app import db
 from app.models.card import Card
 from app.models.board import Board
+
 
 # added Bluerprint and one to many relationships between models
 
 # example_bp = Blueprint('example_bp', __name__)
 boards_bp = Blueprint("boards", __name__, url_prefix="/boards")
-
+load_dotenv()
 
 @boards_bp.route("", methods=["GET"])
 def list_all_boards():
@@ -86,8 +92,9 @@ def get_rentals_by_board(board_id):
 @boards_bp.route("/<int:board_id>/cards", methods=["POST"])
 def create_card(board_id):
     request_body = request.get_json()
+    board = Board.query.get_or_404(board_id)
 
-    if invalid_card_post_request_body(board_id, request_body):
+    if invalid_card_post_request_body(request_body):
         return make_response({"details": "Missing required data"}, 400)
 
     card = Card(message=request_body["message"], board_id=board_id)
@@ -95,12 +102,14 @@ def create_card(board_id):
     db.session.add(card)
     db.session.commit()
 
+    send_slack_card_notification(card, board)
+
     return make_response({"id": card.card_id}, 201)
 
 
-def invalid_card_post_request_body(board_id, request_body):
-    board = Board.query.get(board_id)
-    if ("message" not in request_body or board is None):
+def invalid_card_post_request_body(request_body):
+    
+    if ("message" not in request_body):
         return True
     return False
 
@@ -139,3 +148,23 @@ def delete_card(card_id):
         jsonify(
             details=f"card \"{card.message}\" successfully deleted", id=card.card_id),
         200)
+
+
+def send_slack_card_notification(card, board):
+    """
+    Sends a request to a slack bot to post the
+    "Someone just created a card \"<CARD_MESSAGE>\"" to the inspiration-card channel
+    in the configured slack workspace
+    """
+    SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
+    text = f"Someone just created a card \"{card.message}\" on the \"{board.title}\" board!! Go take a look!"
+    url = f"https://slack.com/api/chat.postMessage?channel=inpirational-cards-notifications&text={text}"
+
+    payload = ""
+
+    headers = {
+        'Authorization': f'Bearer {SLACK_BOT_TOKEN}'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return response

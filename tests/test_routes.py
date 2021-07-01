@@ -109,12 +109,12 @@ def test_create_card(client, one_board):
         'card_id': 1, 'message': 'Baker and Tomi are friends!', 'likes_count': 0, 'board_id': 1}
 
 
-def test_create_card_invalid_board(client, one_board):
+def test_create_card_board_not_found(client, one_board):
     response = client.post("/boards/3/cards", json={"message": "Baker and Tomi are friends!"})
     response_body = response.get_json()
 
-    assert response.status_code == 400
-    assert response_body == {'details': 'Missing required data'}
+    assert response.status_code == 404
+    assert response_body == None
 
 
 def test_increase_likes(client, one_board_with_cards):
@@ -146,7 +146,6 @@ def test_decrease_likes_not_found(client, one_board_with_cards):
 def test_delete_card(client, one_board_with_cards):
     response = client.delete("/boards/delete_card/1")
     response_body = response.get_json()
-    print(response_body)
 
     assert response.status_code == 200
     assert response_body == {
