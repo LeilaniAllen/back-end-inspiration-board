@@ -153,7 +153,7 @@ def delete_card(card_id):
 def send_slack_card_notification(card, board):
     """
     Sends a request to a slack bot to post the
-    "Someone just created a card \"<CARD_MESSAGE>\"" to the inspiration-card channel
+    to the inspiration-card channel
     in the configured slack workspace
     """
     SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
