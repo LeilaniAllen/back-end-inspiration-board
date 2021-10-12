@@ -1,6 +1,8 @@
 # Inspiration Board:
 This is a website that allows you to create inspirational boards with notes. 
 
+Created using Javascript/React for front-end and Python for back-end.
+
 Demo link: http://ice-ice-inspo-board.herokuapp.com
 
 ## Back-end Layer
