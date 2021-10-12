@@ -1,8 +1,13 @@
-# Inspiration Board: Back-end Layer
+# Inspiration Board:
+This is a website that allows you to create inspirational boards with notes. 
+
+Demo link: http://ice-ice-inspo-board.herokuapp.com
+
+## Back-end Layer
 
 This scaffold includes the following:
 
-## `app/__init__.py`
+### `app/__init__.py`
 
 This file configures the app. It's where:
 
@@ -14,7 +19,7 @@ We expect developers to modify this file by:
 
 Note that `create_app` also uses CORS. There is no extra action needed to be done with CORS.
 
-## `app/routes.py`
+### `app/routes.py`
 
 We expect endpoints to be defined here.
 
@@ -30,17 +35,17 @@ Feel free to alter these import statements.
 
 This file also has a comment to define a Blueprint. Feel free to delete it.
 
-## `app/models` Directory
+### `app/models` Directory
 
 This project already includes `app/models/board.py` and `app/models/card.py`, to anticipate the models `Board` and `Card`.
 
 Both files already import `db`, for convenience!
 
-## `requirements.txt`
+### `requirements.txt`
 
 This file lists the dependencies we anticipate are needed for the project.
 
-## `Procfile`
+### `Procfile`
 
 This file already has the contents needed for a Heroku deployment.
 
